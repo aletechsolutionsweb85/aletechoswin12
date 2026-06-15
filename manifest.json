@@ -81,7 +81,7 @@
       "url": "/?app=files",
       "icons": [
         {
-          "src": "icons/shortcut-files.png",
+          "src": "icons/icon-96x96.png",
           "sizes": "96x96",
           "type": "image/png"
         }
@@ -94,7 +94,7 @@
       "url": "/?app=music",
       "icons": [
         {
-          "src": "icons/shortcut-music.png",
+          "src": "icons/icon-96x96.png",
           "sizes": "96x96",
           "type": "image/png"
         }
