@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quick Actions Widget</title>
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box;}
+        body{
+            font-family:'Segoe UI',-apple-system,sans-serif;
+            background:#1a1a2e;
+            color:#ffffff;
+            padding:10px;
+            margin:0;
+            min-height:80px;
+        }
+        .widget-header{
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+            margin-bottom:8px;
+        }
+        .widget-title{
+            font-size:9px;
+            color:#b0b0c0;
+            text-transform:uppercase;
+            letter-spacing:1px;
+            font-weight:600;
+        }
+        .actions-grid{
+            display:grid;
+            grid-template-columns:repeat(4,1fr);
+            gap:4px;
+        }
+        .action-btn{
+            display:flex;
+            flex-direction:column;
+            align-items:center;
+            gap:3px;
+            padding:8px 4px;
+            background:rgba(255,255,255,0.03);
+            border:1px solid rgba(255,255,255,0.06);
+            border-radius:8px;
+            cursor:pointer;
+            transition:all 0.2s;
+            text-align:center;
+        }
+        .action-btn:hover{
+            background:rgba(255,255,255,0.08);
+            border-color:rgba(255,255,255,0.15);
+        }
+        .action-btn:active{
+            background:rgba(0,120,212,0.3);
+            border-color:#0078d4;
+            transform:scale(0.95);
+        }
+        .action-icon{
+            font-size:18px;
+        }
+        .action-label{
+            font-size:6px;
+            color:#b0b0c0;
+            text-transform:uppercase;
+            letter-spacing:0.5px;
+        }
+        .action-btn:hover .action-label{
+            color:#ffffff;
+        }
+    </style>
+</head>
+<body>
+    <div class="widget-header">
+        <span class="widget-title">⚡ Quick Actions</span>
+    </div>
+    
+    <div class="actions-grid">
+        <div class="action-btn" onclick="openApp('files')" title="File Explorer">
+            <span class="action-icon">📁</span>
+            <span class="action-label">Files</span>
+        </div>
+        <div class="action-btn" onclick="openApp('music')" title="Music Player">
+            <span class="action-icon">🎵</span>
+            <span class="action-label">Music</span>
+        </div>
+        <div class="action-btn" onclick="openApp('videos')" title="Video Player">
+            <span class="action-icon">🎬</span>
+            <span class="action-label">Videos</span>
+        </div>
+        <div class="action-btn" onclick="openApp('photos')" title="Photos">
+            <span class="action-icon">🖼️</span>
+            <span class="action-label">Photos</span>
+        </div>
+        <div class="action-btn" onclick="openApp('notes')" title="Notepad">
+            <span class="action-icon">📝</span>
+            <span class="action-label">Notes</span>
+        </div>
+        <div class="action-btn" onclick="openApp('calculator')" title="Calculator">
+            <span class="action-icon">🔢</span>
+            <span class="action-label">Calc</span>
+        </div>
+        <div class="action-btn" onclick="openApp('settings')" title="Settings">
+            <span class="action-icon">⚙️</span>
+            <span class="action-label">Settings</span>
+        </div>
+        <div class="action-btn" onclick="scanStorage()" title="Scan Storage">
+            <span class="action-icon">🔍</span>
+            <span class="action-label">Scan</span>
+        </div>
+    </div>
+
+    <script>
+        function openApp(appId){
+            if(window.parent && window.parent.AleOS){
+                window.parent.AleOS.openApp(appId);
+            } else if(window.parent && window.parent.openApp){
+                window.parent.openApp(appId);
+            }
+        }
+        
+        function scanStorage(){
+            if(window.parent && window.parent.AleOS){
+                window.parent.AleOS.scan();
+            } else if(window.parent && window.parent.startScan){
+                window.parent.startScan();
+            }
+        }
+    </script>
+</body>
+</html>

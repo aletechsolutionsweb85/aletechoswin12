@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Widget</title>
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box;}
+        body{
+            font-family:'Segoe UI',-apple-system,sans-serif;
+            background:#1a1a2e;
+            color:#ffffff;
+            padding:12px;
+            margin:0;
+            min-height:80px;
+        }
+        .widget-header{
+            font-size:9px;
+            color:#b0b0c0;
+            text-transform:uppercase;
+            letter-spacing:1px;
+            font-weight:600;
+            margin-bottom:8px;
+        }
+        .weather-main{
+            display:flex;
+            align-items:center;
+            gap:10px;
+        }
+        .weather-icon{
+            font-size:36px;
+        }
+        .weather-info{
+            flex:1;
+        }
+        .weather-temp{
+            font-size:24px;
+            font-weight:300;
+            line-height:1;
+        }
+        .weather-desc{
+            font-size:8px;
+            color:#b0b0c0;
+        }
+        .weather-details{
+            display:grid;
+            grid-template-columns:repeat(3,1fr);
+            gap:4px;
+            margin-top:8px;
+        }
+        .weather-detail{
+            text-align:center;
+            font-size:7px;
+            color:#b0b0c0;
+        }
+        .weather-detail span{
+            display:block;
+            font-size:10px;
+            color:#fff;
+            font-weight:600;
+        }
+    </style>
+</head>
+<body>
+    <div class="widget-header">🌤️ Weather</div>
+    
+    <div class="weather-main">
+        <div class="weather-icon" id="weatherIcon">☀️</div>
+        <div class="weather-info">
+            <div class="weather-temp" id="weatherTemp">22°C</div>
+            <div class="weather-desc" id="weatherDesc">Sunny</div>
+        </div>
+    </div>
+    
+    <div class="weather-details">
+        <div class="weather-detail">
+            <span id="humidity">55%</span>
+            Humidity
+        </div>
+        <div class="weather-detail">
+            <span id="wind">12 km/h</span>
+            Wind
+        </div>
+        <div class="weather-detail">
+            <span id="uv">5</span>
+            UV Index
+        </div>
+    </div>
+
+    <script>
+        var conditions = [
+            {icon:'☀️',desc:'Sunny',temp:22,humidity:55,wind:12,uv:5},
+            {icon:'⛅',desc:'Partly Cloudy',temp:19,humidity:65,wind:18,uv:3},
+            {icon:'🌧️',desc:'Light Rain',temp:15,humidity:85,wind:22,uv:1},
+            {icon:'🌤️',desc:'Clear',temp:24,humidity:45,wind:8,uv:6}
+        ];
+        
+        function updateWeather(){
+            var w = conditions[Math.floor(Math.random()*conditions.length)];
+            document.getElementById('weatherIcon').textContent = w.icon;
+            document.getElementById('weatherTemp').textContent = w.temp+'°C';
+            document.getElementById('weatherDesc').textContent = w.desc;
+            document.getElementById('humidity').textContent = w.humidity+'%';
+            document.getElementById('wind').textContent = w.wind+' km/h';
+            document.getElementById('uv').textContent = w.uv;
+        }
+        
+        updateWeather();
+        setInterval(updateWeather,30000);
+    </script>
+</body>
+</html>

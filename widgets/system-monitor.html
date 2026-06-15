@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>System Monitor Widget</title>
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box;}
+        body{
+            font-family:'Segoe UI',-apple-system,sans-serif;
+            background:#1a1a2e;
+            color:#ffffff;
+            padding:12px;
+            margin:0;
+            min-height:100px;
+        }
+        .widget-header{
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+            margin-bottom:10px;
+        }
+        .widget-title{
+            font-size:9px;
+            color:#b0b0c0;
+            text-transform:uppercase;
+            letter-spacing:1px;
+            font-weight:600;
+        }
+        .widget-refresh{
+            font-size:8px;
+            color:#0078d4;
+            cursor:pointer;
+        }
+        .stat-row{
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+            padding:3px 0;
+            font-size:9px;
+        }
+        .stat-label{
+            color:#b0b0c0;
+            display:flex;
+            align-items:center;
+            gap:5px;
+        }
+        .stat-value{
+            color:#ffffff;
+            font-weight:600;
+            font-size:8px;
+        }
+        .progress-bar{
+            width:100%;
+            height:3px;
+            background:rgba(255,255,255,0.08);
+            border-radius:2px;
+            margin:2px 0 6px;
+            overflow:hidden;
+        }
+        .progress-fill{
+            height:100%;
+            border-radius:2px;
+            transition:width 0.5s ease;
+        }
+        .progress-fill.cpu{background:linear-gradient(90deg,#0078d4,#4da6ff);}
+        .progress-fill.ram{background:linear-gradient(90deg,#28c840,#00c853);}
+        .progress-fill.storage{background:linear-gradient(90deg,#d4a017,#f0c040);}
+        .progress-fill.battery{background:linear-gradient(90deg,#ff6b6b,#ff1744);}
+        .info-grid{
+            display:grid;
+            grid-template-columns:repeat(2,1fr);
+            gap:6px;
+            margin-top:8px;
+        }
+        .info-item{
+            background:rgba(255,255,255,0.03);
+            border:1px solid rgba(255,255,255,0.06);
+            border-radius:6px;
+            padding:6px;
+            text-align:center;
+        }
+        .info-value{
+            font-size:11px;
+            font-weight:700;
+            color:#ffffff;
+        }
+        .info-label{
+            font-size:6px;
+            color:#b0b0c0;
+            margin-top:2px;
+            text-transform:uppercase;
+        }
+    </style>
+</head>
+<body>
+    <div class="widget-header">
+        <span class="widget-title">📊 System Monitor</span>
+        <span class="widget-refresh" onclick="refreshData()">🔄</span>
+    </div>
+    
+    <div class="stat-row">
+        <span class="stat-label">🖥️ CPU</span>
+        <span class="stat-value" id="cpuVal">15%</span>
+    </div>
+    <div class="progress-bar"><div class="progress-fill cpu" id="cpuBar" style="width:15%"></div></div>
+    
+    <div class="stat-row">
+        <span class="stat-label">💾 RAM</span>
+        <span class="stat-value" id="ramVal">2.8/8GB</span>
+    </div>
+    <div class="progress-bar"><div class="progress-fill ram" id="ramBar" style="width:35%"></div></div>
+    
+    <div class="stat-row">
+        <span class="stat-label">💿 Storage</span>
+        <span class="stat-value" id="storageVal">45/128GB</span>
+    </div>
+    <div class="progress-bar"><div class="progress-fill storage" id="storageBar" style="width:35%"></div></div>
+    
+    <div class="stat-row">
+        <span class="stat-label">🔋 Battery</span>
+        <span class="stat-value" id="batteryVal">85%</span>
+    </div>
+    <div class="progress-bar"><div class="progress-fill battery" id="batteryBar" style="width:85%"></div></div>
+    
+    <div class="info-grid">
+        <div class="info-item">
+            <div class="info-value" id="fileCount">0</div>
+            <div class="info-label">Files</div>
+        </div>
+        <div class="info-item">
+            <div class="info-value" id="musicCount">0</div>
+            <div class="info-label">Music</div>
+        </div>
+        <div class="info-item">
+            <div class="info-value" id="videoCount">0</div>
+            <div class="info-label">Videos</div>
+        </div>
+        <div class="info-item">
+            <div class="info-value" id="imageCount">0</div>
+            <div class="info-label">Images</div>
+        </div>
+    </div>
+
+    <script>
+        function refreshData(){
+            var cpu = Math.floor(Math.random()*30+8);
+            var ram = (Math.random()*2+2).toFixed(1);
+            var storage = Math.floor(Math.random()*20+35);
+            var battery = Math.floor(Math.random()*20+75);
+            var files = Math.floor(Math.random()*100+50);
+            var music = Math.floor(Math.random()*30+5);
+            var videos = Math.floor(Math.random()*15+3);
+            var images = Math.floor(Math.random()*40+10);
+            
+            document.getElementById('cpuVal').textContent = cpu+'%';
+            document.getElementById('cpuBar').style.width = cpu+'%';
+            document.getElementById('ramVal').textContent = ram+'/8GB';
+            document.getElementById('ramBar').style.width = ((ram/8)*100)+'%';
+            document.getElementById('storageVal').textContent = storage+'/128GB';
+            document.getElementById('storageBar').style.width = ((storage/128)*100)+'%';
+            document.getElementById('batteryVal').textContent = battery+'%';
+            document.getElementById('batteryBar').style.width = battery+'%';
+            document.getElementById('fileCount').textContent = files;
+            document.getElementById('musicCount').textContent = music;
+            document.getElementById('videoCount').textContent = videos;
+            document.getElementById('imageCount').textContent = images;
+        }
+        
+        setInterval(refreshData, 5000);
+        refreshData();
+    </script>
+</body>
+</html>
