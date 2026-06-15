@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Share to Ale OS</title>
+    <style>
+        :root {
+            --bg: #0d0d1a;
+            --bg2: #1a1a2e;
+            --ac: #0078d4;
+            --ac2: #4da6ff;
+            --gd: #d4a017;
+            --tx: #ffffff;
+            --tx2: #b0b0c0;
+            --br: rgba(255,255,255,0.10);
+            --sc: #00c853;
+        }
+        *{margin:0;padding:0;box-sizing:border-box;}
+        body{
+            font-family:'Segoe UI','San Francisco',-apple-system,sans-serif;
+            background:var(--bg);
+            color:var(--tx);
+            min-height:100vh;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            padding:20px;
+        }
+        .share-container{
+            background:var(--bg2);
+            border:1px solid var(--br);
+            border-radius:16px;
+            padding:24px 20px;
+            width:100%;
+            max-width:400px;
+            text-align:center;
+            box-shadow:0 20px 50px rgba(0,0,0,0.5);
+        }
+        .share-logo{
+            width:60px;
+            height:60px;
+            border:2px solid var(--gd);
+            border-radius:14px;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            margin:0 auto 12px;
+            font-size:24px;
+            color:var(--gd);
+            background:rgba(212,160,23,0.1);
+        }
+        .share-title{
+            font-size:16px;
+            font-weight:700;
+            margin-bottom:4px;
+            color:var(--gd);
+        }
+        .share-subtitle{
+            font-size:10px;
+            color:var(--tx2);
+            margin-bottom:20px;
+        }
+        .share-icon-large{
+            font-size:48px;
+            margin:10px 0;
+        }
+        .share-filename{
+            font-size:11px;
+            font-weight:600;
+            color:var(--tx);
+            word-break:break-all;
+            margin-bottom:4px;
+        }
+        .share-filesize{
+            font-size:8px;
+            color:var(--tx2);
+            margin-bottom:16px;
+        }
+        .share-text{
+            font-size:9px;
+            color:var(--tx2);
+            background:rgba(255,255,255,0.03);
+            border:1px solid var(--br);
+            border-radius:8px;
+            padding:10px;
+            margin-bottom:16px;
+            text-align:left;
+            word-break:break-word;
+            max-height:100px;
+            overflow-y:auto;
+        }
+        .share-url{
+            font-size:8px;
+            color:var(--ac2);
+            word-break:break-all;
+            margin-bottom:12px;
+        }
+        .share-actions{
+            display:flex;
+            flex-direction:column;
+            gap:6px;
+        }
+        .share-btn{
+            width:100%;
+            padding:10px;
+            border-radius:8px;
+            border:1px solid var(--br);
+            cursor:pointer;
+            font-size:10px;
+            font-weight:600;
+            transition:all 0.2s;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            gap:6px;
+        }
+        .share-btn.primary{
+            background:var(--ac);
+            border-color:var(--ac);
+            color:#fff;
+        }
+        .share-btn.primary:hover{
+            background:var(--ac2);
+        }
+        .share-btn.secondary{
+            background:rgba(255,255,255,0.04);
+            color:var(--tx2);
+        }
+        .share-btn.secondary:hover{
+            background:rgba(255,255,255,0.1);
+            color:#fff;
+        }
+        .share-btn.success{
+            background:var(--sc);
+            border-color:var(--sc);
+            color:#fff;
+        }
+        .share-btn i{
+            font-size:12px;
+        }
+        .share-files-list{
+            text-align:left;
+            margin-bottom:12px;
+        }
+        .share-file-item{
+            display:flex;
+            align-items:center;
+            gap:8px;
+            padding:8px;
+            background:rgba(255,255,255,0.03);
+            border:1px solid var(--br);
+            border-radius:6px;
+            margin-bottom:4px;
+            font-size:9px;
+        }
+        .share-file-icon{
+            font-size:20px;
+        }
+        .share-file-info{
+            flex:1;
+            overflow:hidden;
+        }
+        .share-file-name{
+            overflow:hidden;
+            text-overflow:ellipsis;
+            white-space:nowrap;
+            color:var(--tx);
+        }
+        .share-file-size{
+            font-size:7px;
+            color:var(--tx2);
+        }
+        .status-message{
+            font-size:9px;
+            padding:8px;
+            border-radius:6px;
+            margin-top:10px;
+            display:none;
+        }
+        .status-message.show{
+            display:block;
+        }
+        .status-message.success{
+            background:rgba(0,200,83,0.15);
+            color:var(--sc);
+            border:1px solid rgba(0,200,83,0.3);
+        }
+        .status-message.error{
+            background:rgba(255,23,68,0.15);
+            color:#ff1744;
+            border:1px solid rgba(255,23,68,0.3);
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+    <div class="share-container">
+        <div class="share-logo"><i class="fa-solid fa-crown"></i></div>
+        <div class="share-title">Ale Tech-Solutions OS</div>
+        <div class="share-subtitle">Shared content received</div>
+        
+        <div id="shareContent">
+            <div class="share-icon-large" id="shareIcon">📁</div>
+            <div id="filesList" class="share-files-list"></div>
+            <div id="textContent" class="share-text" style="display:none;"></div>
+            <div id="urlContent" class="share-url" style="display:none;"></div>
+        </div>
+        
+        <div class="share-actions">
+            <button class="share-btn primary" onclick="openInFiles()">
+                <i class="fa-solid fa-folder-open"></i> Open in File Explorer
+            </button>
+            <button class="share-btn secondary" onclick="saveToDevice()">
+                <i class="fa-solid fa-floppy-disk"></i> Save to Device
+            </button>
+            <button class="share-btn secondary" onclick="openMainApp()">
+                <i class="fa-solid fa-house"></i> Open Ale OS
+            </button>
+        </div>
+        
+        <div id="statusMsg" class="status-message"></div>
+    </div>
+
+    <script>
+        // Parse shared data from URL
+        function getSharedData() {
+            var params = new URLSearchParams(window.location.search);
+            return {
+                title: params.get('name') || params.get('title') || '',
+                text: params.get('description') || params.get('text') || '',
+                url: params.get('link') || params.get('url') || ''
+            };
+        }
+
+        // Get file icon based on type
+        function getFileIcon(name) {
+            var ext = name.split('.').pop().toLowerCase();
+            var icons = {
+                'mp3':'fa-solid fa-music',
+                'wav':'fa-solid fa-music',
+                'flac':'fa-solid fa-music',
+                'aac':'fa-solid fa-music',
+                'ogg':'fa-solid fa-music',
+                'm4a':'fa-solid fa-music',
+                'mp4':'fa-solid fa-film',
+                'mkv':'fa-solid fa-film',
+                'avi':'fa-solid fa-film',
+                'mov':'fa-solid fa-film',
+                'webm':'fa-solid fa-film',
+                'jpg':'fa-solid fa-image',
+                'jpeg':'fa-solid fa-image',
+                'png':'fa-solid fa-image',
+                'gif':'fa-solid fa-image',
+                'webp':'fa-solid fa-image',
+                'bmp':'fa-solid fa-image',
+                'svg':'fa-solid fa-image',
+                'pdf':'fa-solid fa-file-pdf',
+                'doc':'fa-solid fa-file-word',
+                'docx':'fa-solid fa-file-word',
+                'xls':'fa-solid fa-file-excel',
+                'xlsx':'fa-solid fa-file-excel',
+                'ppt':'fa-solid fa-file-powerpoint',
+                'txt':'fa-solid fa-file-lines',
+                'zip':'fa-solid fa-file-zipper',
+                'rar':'fa-solid fa-file-zipper',
+                '7z':'fa-solid fa-file-zipper'
+            };
+            return icons[ext] || 'fa-solid fa-file';
+        }
+
+        // Format file size
+        function formatSize(bytes) {
+            if (!bytes) return 'Unknown size';
+            var units = ['B','KB','MB','GB'];
+            var i = Math.min(3, Math.floor(Math.log(bytes)/Math.log(1024)));
+            return (bytes/Math.pow(1024,i)).toFixed(1)+' '+units[i];
+        }
+
+        // Handle POST data (files from share)
+        async function handleSharedFiles() {
+            if (window.location.search) {
+                // GET data from URL
+                var data = getSharedData();
+                if (data.title) {
+                    document.getElementById('textContent').textContent = data.title;
+                    document.getElementById('textContent').style.display = 'block';
+                }
+                if (data.text && data.text !== data.title) {
+                    document.getElementById('textContent').textContent += '\n' + data.text;
+                    document.getElementById('textContent').style.display = 'block';
+                }
+                if (data.url) {
+                    document.getElementById('urlContent').textContent = '🔗 ' + data.url;
+                    document.getElementById('urlContent').style.display = 'block';
+                }
+            }
+            
+            // Try to get POST data (files)
+            try {
+                if (window.location.hash && window.location.hash.includes('share')) {
+                    var formData = new FormData();
+                    // Files would be available via service worker
+                    // This is handled by the service worker intercepting the share
+                }
+            } catch(e) {
+                console.log('No POST data available');
+            }
+            
+            // Store share data in sessionStorage for main app
+            var shareData = getSharedData();
+            if (shareData.title || shareData.text || shareData.url) {
+                sessionStorage.setItem('ale-share-data', JSON.stringify(shareData));
+            }
+        }
+
+        // Show files list
+        function showFilesList(files) {
+            var list = document.getElementById('filesList');
+            var icon = document.getElementById('shareIcon');
+            
+            if (files && files.length > 0) {
+                icon.textContent = '📁';
+                var html = '';
+                files.forEach(function(file) {
+                    html += '<div class="share-file-item">';
+                    html += '<span class="share-file-icon"><i class="' + getFileIcon(file.name) + '"></i></span>';
+                    html += '<span class="share-file-info">';
+                    html += '<div class="share-file-name">' + file.name + '</div>';
+                    html += '<div class="share-file-size">' + formatSize(file.size) + '</div>';
+                    html += '</span>';
+                    html += '</div>';
+                });
+                list.innerHTML = html;
+            } else {
+                var data = getSharedData();
+                if (data.title) {
+                    icon.textContent = '📄';
+                } else if (data.url) {
+                    icon.textContent = '🔗';
+                } else {
+                    icon.textContent = '📁';
+                }
+            }
+        }
+
+        // Action buttons
+        function openInFiles() {
+            var data = getSharedData();
+            var url = '/index.html?app=files';
+            if (data.title) url += '&share=' + encodeURIComponent(data.title);
+            showStatus('Opening File Explorer...', 'success');
+            setTimeout(function() {
+                window.location.href = url;
+            }, 500);
+        }
+
+        function saveToDevice() {
+            var data = getSharedData();
+            if (data.text) {
+                var blob = new Blob([data.text], {type:'text/plain'});
+                var a = document.createElement('a');
+                a.href = URL.createObjectURL(blob);
+                a.download = data.title || 'shared_note.txt';
+                a.click();
+                showStatus('File saved successfully!', 'success');
+            } else if (data.url) {
+                window.open(data.url, '_blank');
+                showStatus('Opening link...', 'success');
+            } else {
+                showStatus('No content to save', 'error');
+            }
+        }
+
+        function openMainApp() {
+            window.location.href = '/index.html';
+        }
+
+        function showStatus(message, type) {
+            var status = document.getElementById('statusMsg');
+            status.textContent = message;
+            status.className = 'status-message show ' + type;
+            setTimeout(function() {
+                status.classList.remove('show');
+            }, 3000);
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            handleSharedFiles();
+            showFilesList(null);
+            
+            // If shared from another app, store data
+            var data = getSharedData();
+            if (data.title || data.text || data.url) {
+                try {
+                    sessionStorage.setItem('ale-share-data', JSON.stringify(data));
+                } catch(e) {}
+            }
+        });
+
+        // Listen for service worker messages
+        if ('serviceWorker' in navigator && navigator.serviceWorker.controller) {
+            navigator.serviceWorker.addEventListener('message', function(event) {
+                if (event.data && event.data.type === 'SHARE_DATA') {
+                    var files = event.data.files || [];
+                    showFilesList(files);
+                }
+            });
+        }
+
+        console.log('Ale Tech-Solutions OS - Share Handler Ready');
+    </script>
+</body>
+</html>
