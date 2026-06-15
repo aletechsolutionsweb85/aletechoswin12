@@ -1,7 +1,7 @@
 {
   "name": "Ale Tech-Solutions OS",
   "short_name": "Ale OS",
-  "description": "Windows 12 Mobile Pro by Ale Tech-Solutions - Complete mobile operating system experience with file manager, music player, video player, and productivity tools",
+  "description": "Windows 12 Mobile Pro by Ale Tech-Solutions - Complete mobile operating system",
   "id": "ale-os-v1",
   "start_url": "/index.html",
   "scope": "/",
@@ -23,7 +23,22 @@
   ],
   "iarc_rating_id": "e10plus",
   "prefer_related_applications": false,
-  "related_applications": [],
+  "related_applications": [
+    {
+      "platform": "play",
+      "url": "https://play.google.com/store/apps/details?id=com.aletech.os",
+      "id": "com.aletech.os"
+    },
+    {
+      "platform": "windows",
+      "url": "https://www.microsoft.com/store/apps/ale-os",
+      "id": "AleTechSolutions.AleOS"
+    },
+    {
+      "platform": "webapp",
+      "url": "https://aletech-solutions.com/manifest.json"
+    }
+  ],
   "icons": [
     {
       "src": "icons/icon-72x72.png",
@@ -111,6 +126,126 @@
     }
   ],
   "share_target": {
+    "action": "/?app=files",
+    "method": "POST",
+    "enctype": "multipart/form-data",
+    "params": {
+      "title": "name",
+      "text": "description",
+      "url": "link",
+      "files": [
+        {
+          "name": "file",
+          "accept": [
+            "image/*",
+            "audio/*",
+            "video/*",
+            "application/pdf",
+            "text/plain"
+          ]
+        }
+      ]
+    }
+  },
+  "file_handlers": [
+    {
+      "action": "/?app=music",
+      "accept": {
+        "audio/mpeg": [".mp3"],
+        "audio/wav": [".wav"],
+        "audio/flac": [".flac"],
+        "audio/aac": [".aac", ".m4a"],
+        "audio/ogg": [".ogg"]
+      }
+    },
+    {
+      "action": "/?app=videos",
+      "accept": {
+        "video/mp4": [".mp4"],
+        "video/webm": [".webm"],
+        "video/x-matroska": [".mkv"]
+      }
+    },
+    {
+      "action": "/?app=photos",
+      "accept": {
+        "image/png": [".png"],
+        "image/jpeg": [".jpg", ".jpeg"],
+        "image/gif": [".gif"],
+        "image/webp": [".webp"]
+      }
+    }
+  ],
+  "protocol_handlers": [
+    {
+      "protocol": "web+aleos",
+      "url": "/?action=%s"
+    }
+  ],
+  "launch_handler": {
+    "client_mode": "navigate-existing"
+  },
+  "note_taking": {
+    "new_note_url": "/?app=notes&action=new"
+  },
+  "scope_extensions": [
+    {
+      "origin": "https://aletech-solutions.com"
+    },
+    {
+      "origin": "https://*.aletech-solutions.com"
+    },
+    {
+      "origin": "https://aletech.github.io"
+    }
+  ],
+  "edge_side_panel": {
+    "preferred_width": 400
+  },
+  "widgets": [
+    {
+      "name": "System Monitor",
+      "tag": "ale-system-monitor",
+      "ms_ac_template": "widgets/system-monitor.html",
+      "data": {
+        "type": "application/json"
+      },
+      "type": "application/json",
+      "screenshots": [
+        {
+          "src": "screenshots/widget-system.png",
+          "sizes": "320x320",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "Music Now Playing",
+      "tag": "ale-music-widget",
+      "ms_ac_template": "widgets/music-widget.html",
+      "data": {
+        "type": "application/json"
+      },
+      "type": "application/json",
+      "screenshots": [
+        {
+          "src": "screenshots/widget-music.png",
+          "sizes": "320x320",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "Quick Actions",
+      "tag": "ale-quick-actions",
+      "ms_ac_template": "widgets/quick-actions.html",
+      "data": {
+        "type": "application/json"
+      },
+      "type": "application/json"
+    }
+  ]
+}  "share_target": {
     "action": "/?app=files",
     "method": "POST",
     "enctype": "multipart/form-data",
