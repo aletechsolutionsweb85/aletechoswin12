@@ -2,7 +2,7 @@
   "name": "Ale Tech-Solutions OS",
   "short_name": "Ale OS",
   "description": "Windows 12 Mobile Pro by Ale Tech-Solutions - Complete mobile operating system",
-  "start_url": "/",
+  "start_url": "/index.html",
   "scope": "/",
   "display": "standalone",
   "orientation": "any",
@@ -81,8 +81,8 @@
       "url": "/?app=files",
       "icons": [
         {
-          "src": "icons/icon-96x96.png",
-          "sizes": "96x96",
+          "src": "icons/icon-512x512.png",
+          "sizes": "512x512",
           "type": "image/png"
         }
       ]
