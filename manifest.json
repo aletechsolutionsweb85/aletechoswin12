@@ -43,7 +43,7 @@
       "purpose": "any"
     },
     {
-      "src": "aletechicon.png,
+      "src": "icons/aletechicon.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any maskable"
