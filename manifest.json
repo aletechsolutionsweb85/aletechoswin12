@@ -1,11 +1,100 @@
 {
-  "background_color": "#ffffff",
-  "dir": "ltr",
-  "display": "standalone",
   "name": "Ale Tech-Solutions OS",
-  "orientation": "any",
-  "scope": "/",
-  "short_name": "Ale Tech-Solutions OS",
+  "short_name": "Ale OS",
+  "description": "Windows 12 Mobile Pro by Ale Tech-Solutions - Complete mobile operating system",
   "start_url": "/",
-  "theme_color": "#1a1a2e"
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#0d0d1a",
+  "theme_color": "#0078d4",
+  "dir": "ltr",
+  "lang": "en-US",
+  "categories": ["productivity", "utilities", "lifestyle"],
+  "icons": [
+    {
+      "src": "aletechicon.png",
+      "sizes": "72x72",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "aletechicon.png",
+      "sizes": "96x96",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon-128x128.png",
+      "sizes": "128x128",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "aletechicon.png",
+      "sizes": "144x144",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon-152x152.png",
+      "sizes": "152x152",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "aletechicon.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "aletechicon.png",
+      "sizes": "384x384",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "aletechicon.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "aletechicon.png",
+      "sizes": "1080x1920",
+      "type": "image/png",
+      "label": "Desktop View"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "File Explorer",
+      "short_name": "Files",
+      "description": "Browse files",
+      "url": "/?app=files",
+      "icons": [
+        {
+          "src": "icons/shortcut-files.png",
+          "sizes": "96x96",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "Music Player",
+      "short_name": "Music",
+      "description": "Play music",
+      "url": "/?app=music",
+      "icons": [
+        {
+          "src": "icons/shortcut-music.png",
+          "sizes": "96x96",
+          "type": "image/png"
+        }
+      ]
+    }
+  ]
 }
