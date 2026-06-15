@@ -10,7 +10,8 @@
     "standalone",
     "fullscreen",
     "minimal-ui",
-    "window-controls-overlay"
+    "window-controls-overlay",
+    "browser"
   ],
   "orientation": "any",
   "background_color": "#0d0d1a",
