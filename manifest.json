@@ -1,0 +1,11 @@
+{
+  "background_color": "#ffffff",
+  "dir": "ltr",
+  "display": "standalone",
+  "name": "Ale Tech-Solutions OS",
+  "orientation": "any",
+  "scope": "/",
+  "short_name": "Ale Tech-Solutions OS",
+  "start_url": "/",
+  "theme_color": "#1a1a2e"
+}
