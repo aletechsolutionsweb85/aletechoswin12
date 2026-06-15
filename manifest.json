@@ -5,7 +5,7 @@
   "id": "ale-tech-solutions-os-v1",
   "start_url": "/index.html",
   "scope": "/",
-  "display": "minimal-ui",
+  "display": "fullscreen",
   "display_override": [
     "standalone",
     "fullscreen",
